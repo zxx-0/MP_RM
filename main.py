@@ -88,7 +88,7 @@ def filter_new_projects(data, processed_tokens):
 
     return [
         project for project in data["data"]
-        if project.get("progress_buy", 0) > 95 and 
+        if project.get("progress_buy", 0) > 50 and 
            project.get("token_name") not in processed_tokens
     ]#购买进度（progress_buy）大于90，并且该项目尚未处理过（token_name 不在已处理列表中）
 
