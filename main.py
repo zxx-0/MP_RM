@@ -38,14 +38,17 @@ def send_telegram_message(token, chat_id, message):
 def format_project_message(project):
     """格式化项目信息消息"""
     return "\n".join([
-        f"🚀 <b>MP新项目发现</b> 🚀",
-        f"📛 项目名称: {project.get('token_name', 'N/A')}",
-        f"🏷️ 代币符号: {project.get('token_symbol', 'N/A')}",
-        f"📈 购买进度: {project.get('progress_buy', 0):.2f}%",
-        f"💰 当前价格: {project.get('current_price_sui', 0):.8f} SUI",
-        f"🌐 项目网站: {project.get('link_website', 'N/A')}",
-        f"🔗 推特: {project.get('link_twitter', 'N/A')}",
-        f"📣 电报: {project.get('link_telegram', 'N/A')}"
+    f"🚀 <b>MP新项目发现</b> 🚀",
+    f"📛 项目名称: {project.get('token_name', 'N/A')}",
+    f"🏷️ 代币符号: {project.get('token_symbol', 'N/A')}",
+    f"📈 购买进度: {project.get('progress_buy', 0):.2f}%",
+    f"💰 当前价格: {project.get('current_price_sui', 0):.8f} SUI",
+    f"🌐 项目网站: {project.get('link_website', 'N/A')}",
+    f"🔗 推特: {project.get('link_twitter', 'N/A')}",
+    f"📣 电报: {project.get('link_telegram', 'N/A')}",
+    f"📜 合约地址: {project.get('created_address', 'N/A')}",
+    f"📅 创建时间: {project.get('created_at', 'N/A')}",
+    f"🔗 项目链接: https://movepump.com/token/{project.get('coin_type', 'N/A')}"
     ])
 
 def fetch_ranking_data():
