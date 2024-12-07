@@ -6,14 +6,14 @@ import logging
 
 # 配置日志
 logging.basicConfig(
-    level=logging.INFO, 
-    format='%(asctime)s - %(levelname)s: %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s: %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S"
 )
 
 def load_processed_tokens():
     """加载已处理的 token_name 列表"""
-    return set(json.load(open('processed_tokens.json', 'r', encoding='utf-8')) 
+    return set(json.load(open('processed_tokens.json', 'r', encoding='utf-8'))
                if os.path.exists('processed_tokens.json') else [])
 
 def save_processed_tokens(processed_tokens):
@@ -38,33 +38,24 @@ def send_telegram_message(token, chat_id, message):
 def format_project_message(project):
     """格式化项目信息消息"""
     return "\n".join([
-    f"🚀 <b>MP新项目发现</b> 🚀",
-    f"📛 项目名称: {project.get('token_name', 'N/A')}",
-    f"🏷️ 代币符号: {project.get('token_symbol', 'N/A')}",
-    f"📈 购买进度: {project.get('progress_buy', 0):.2f}%",
-    f"💰 当前价格: {project.get('current_price_sui', 0):.8f} SUI",
-    f"🌐 项目网站: {project.get('link_website', 'N/A')}",
-    f"🔗 推特: {project.get('link_twitter', 'N/A')}",
-    f"📣 电报: {project.get('link_telegram', 'N/A')}",
-    f"📜 合约地址: {project.get('created_address', 'N/A')}",
-    f"📅 创建时间: {project.get('created_at', 'N/A')}",
-    f"🔗 项目链接: https://movepump.com/token/{project.get('coin_type', 'N/A')}"
+        f"🚀 <b>MP新项目发现</b> 🚀",
+        f"📛 项目名称: {project.get('token_name', 'N/A')}",
+        f"🏷️ 代币符号: {project.get('token_symbol', 'N/A')}",
+        f"📈 购买进度: {project.get('progress_buy', 0):.2f}%",
+        f"💰 当前价格: {project.get('current_price_sui', 0):.8f} SUI",
+        f"🌐 项目网站: {project.get('link_website', 'N/A')}",
+        f"🔗 推特: {project.get('link_twitter', 'N/A')}",
+        f"📣 电报: {project.get('link_telegram', 'N/A')}",
+        f"📜 合约地址: {project.get('created_address', 'N/A')}",
+        f"📅 创建时间: {project.get('created_at', 'N/A')}",
+        f"🔗 项目链接: https://movepump.com/token/{project.get('coin_type', 'N/A')}"
     ])
 
 def fetch_ranking_data():
     """抓取排名数据"""
     url = "https://movepump.com/ranking"
     headers = {
-        #"accept": "text/x-component",
-        #"accept-encoding": "gzip, deflate, br, zstd",
-        #"accept-language": "en,en-US;q=0.9,en-GB;q=0.8,zh-CN;q=0.7,zh;q=0.6",
-        #"content-type": "application/json",
-        #"cookie": "_ga=GA1.1.1741352674.1731594585; _ga_GNVVWBL3J9=GS1.1.1733238793.5.0.1733238903.0.0.0",
-        #"dnt": "1",
         "next-action": "04ee47b34d62e8aeacb861b976bb67d69dd7ce34",
-        #"next-router-state-tree": "%5B%22%22%2C%7B%22children%22%3A%5B%22ranking%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
-        #"origin": "https://movepump.com",
-        #"referer": "https://movepump.com/ranking",
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0"
     }
     payload = [{
@@ -93,7 +84,7 @@ def filter_new_projects(data, processed_tokens):
         project for project in data["data"]
         if project.get("progress_buy", 0) > 95 and 
            project.get("token_name") not in processed_tokens
-    ]#购买进度（progress_buy）大于90，并且该项目尚未处理过（token_name 不在已处理列表中）
+    ]
 
 def main():
     TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
