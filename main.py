@@ -82,7 +82,7 @@ def filter_new_projects(data, processed_tokens):
 
     return [
         project for project in data["data"]
-        if project.get("progress_buy", 0) > 90 and 
+        if project.get("progress_buy", 0) > 50 and 
            project.get("token_name") not in processed_tokens
     ]
 
